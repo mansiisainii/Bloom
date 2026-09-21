@@ -3,11 +3,12 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-app.use(cors());
 app.use(express.json());
-
 app.use(cors({
-  origin: [process.env.CLIENT_URL || 'http://localhost:5173'],
+  origin: [
+    process.env.CLIENT_URL || 'http://localhost:5173',
+    'https://bloom-chi-three.vercel.app'
+  ],
   credentials: true,
 }));
 
