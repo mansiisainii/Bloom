@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { searchUsers, sendFriendRequest, respondToRequest, getFriends } from '../api/friends';
-import { Users, UserPlus, Check, X, Search } from 'lucide-react';
+import { Users, UserPlus, Check, X, Search, MessageCircle } from 'lucide-react';
+import Chat from '../components/Chat';
 
 export default function Friends() {
   const [friends, setFriends] = useState([]);
@@ -8,6 +9,7 @@ export default function Friends() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [message, setMessage] = useState('');
+  const [activeChatFriend, setActiveChatFriend] = useState(null);
 
   const fetchFriends = async () => {
     const res = await getFriends();
@@ -109,13 +111,23 @@ export default function Friends() {
         {friends.length === 0 && <p className="text-text-muted text-sm">No friends yet — search above to add some.</p>}
         <div className="space-y-2">
           {friends.map((f) => (
-            <div key={f.id} className="bg-surface border border-border rounded-lg p-3">
-              <p className="text-text text-sm font-medium">{f.name}</p>
-              <p className="text-text-muted text-xs">{f.email}</p>
+            <div key={f.id} className="bg-surface border border-border rounded-lg p-3 flex justify-between items-center">
+              <div>
+                <p className="text-text text-sm font-medium">{f.name}</p>
+                <p className="text-text-muted text-xs">{f.email}</p>
+              </div>
+              <button onClick={() => setActiveChatFriend(f)} className="text-primary hover:text-primary/80 flex items-center gap-1 text-sm bg-primary-soft px-3 py-1.5 rounded-lg transition-colors">
+                <MessageCircle size={16} /> Chat
+              </button>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Chat Modal */}
+      {activeChatFriend && (
+        <Chat friend={activeChatFriend} onClose={() => setActiveChatFriend(null)} />
+      )}
     </div>
   );
 }

@@ -34,6 +34,9 @@ app.use('/api/notes', notesRoutes);
 const friendRoutes = require('./routes/friendRoutes');
 app.use('/api/friends', friendRoutes);
 
+const messageRoutes = require('./routes/messageRoutes');
+app.use('/api/messages', messageRoutes);
+
 app.get('/', (req, res) => {
   res.send('Bloom API running 🌸');
 });
