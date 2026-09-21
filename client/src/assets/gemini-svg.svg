@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient for Petals -->
+    <linearGradient id="petalGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#E91E63" />
+      <stop offset="60%" stop-color="#FF69B4" />
+      <stop offset="100%" stop-color="#FFB6C1" />
+    </linearGradient>
+
+    <!-- Overlay Gradient for Depth -->
+    <linearGradient id="petalOverlay" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#880E4F" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#FFB6C1" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Center Gradient -->
+    <radialGradient id="centerGrad" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
+      <stop offset="0%" stop-color="#FFF59D" />
+      <stop offset="50%" stop-color="#FBC02D" />
+      <stop offset="100%" stop-color="#F57F17" />
+    </radialGradient>
+
+    <!-- Base Petal Shape -->
+    <g id="petal">
+      <path d="M 50 50 C 40 32, 38 10, 50 5 C 62 10, 60 32, 50 50 Z" fill="url(#petalGrad)" />
+      <path d="M 50 50 C 40 32, 38 10, 50 5 C 62 10, 60 32, 50 50 Z" fill="url(#petalOverlay)" />
+      <!-- Subtle petal detail line -->
+      <path d="M 50 50 Q 50 30 50 12" stroke="#FFFFFF" stroke-width="0.75" stroke-linecap="round" opacity="0.5" fill="none" />
+    </g>
+
+    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="1" flood-color="#000" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <!-- Flower Group with Shadow -->
+  <g filter="url(#dropShadow)">
+    <!-- 8 Rotating Petals -->
+    <use href="#petal" />
+    <use href="#petal" transform="rotate(45 50 50)" />
+    <use href="#petal" transform="rotate(90 50 50)" />
+    <use href="#petal" transform="rotate(135 50 50)" />
+    <use href="#petal" transform="rotate(180 50 50)" />
+    <use href="#petal" transform="rotate(225 50 50)" />
+    <use href="#petal" transform="rotate(270 50 50)" />
+    <use href="#petal" transform="rotate(315 50 50)" />
+
+    <!-- Outer Flower Center Ring -->
+    <circle cx="50" cy="50" r="10.5" fill="#F57F17" opacity="0.3" />
+
+    <!-- Main Flower Center -->
+    <circle cx="50" cy="50" r="9.5" fill="url(#centerGrad)" />
+
+    <!-- Center Texture / Detail Dots -->
+    <circle cx="50" cy="50" r="7" fill="none" stroke="#FFF59D" stroke-width="0.8" stroke-dasharray="1.2 1.2" opacity="0.8" />
+    <circle cx="50" cy="50" r="4.5" fill="none" stroke="#E65100" stroke-width="0.6" stroke-dasharray="1 1" opacity="0.5" />
+  </g>
+</svg>

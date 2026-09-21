@@ -8,6 +8,21 @@ import { getEvents } from '../api/events';
 import { Droplet, Soup, CalendarDays, AlarmClock, LogOut } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+const formatEventDate = (dateStr) => {
+  if (!dateStr) return '';
+  try {
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return dateStr;
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    const time = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return `${year}-${month}-${day} ${time}`;
+  } catch (e) {
+    return dateStr;
+  }
+};
+
 export default function Dashboard() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -65,7 +80,7 @@ export default function Dashboard() {
             <CalendarDays size={18} /> <span className="text-sm text-text-muted">Next Event</span>
           </div>
           <p className="text-text text-sm font-medium">{upcoming[0]?.title || 'Nothing upcoming'}</p>
-          <p className="text-text-muted text-xs">{upcoming[0]?.event_date || ''}</p>
+          <p className="text-text-muted text-xs">{formatEventDate(upcoming[0]?.event_date)}</p>
         </Link>
 
         {/* Alarms card */}
@@ -86,7 +101,7 @@ export default function Dashboard() {
             {upcoming.map((e) => (
               <div key={e.id} className="flex justify-between text-sm">
                 <span className="text-text">{e.title}</span>
-                <span className="text-text-muted">{e.event_date}</span>
+                <span className="text-text-muted">{formatEventDate(e.event_date)}</span>
               </div>
             ))}
           </div>
